@@ -47,12 +47,12 @@ class Commerce extends React.Component {
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9FODTCSvaRcnIEQJ3v5dx95KFJNelebs-1A&usqp=CAU"
     }    
 ]
-
-
-
-  return (
-   
-  );
+    render() {
+      return <div>
+        <h1> PRODUTOS ASTRODEV </h1>
+        
+      </div>
+    }
 }
 
 export default Commerce;
