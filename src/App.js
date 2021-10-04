@@ -18,7 +18,8 @@ class App extends Component {
     query: "",
     precoMinimo: "",
     precoMaximo: "",
-    order: 1 
+    order: 1,
+    carrinhoDeCompras: []
   }
 
   
