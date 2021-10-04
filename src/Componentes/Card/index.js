@@ -28,7 +28,8 @@ export function Card(props) {
          <span>R$ {props.produtos.valor.toFixed(2).replace(".", ",")}</span>
     </CardFooter>
 
-    <button>Adicionar ao Carrinho</button>
+    <button onClick={() => this.props.onAddProdutoNoCarrinho(props.produtos.id)}>
+          Adicionar ao carrinho</button>
     
      </CardContainer>
 }

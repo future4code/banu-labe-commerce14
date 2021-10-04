@@ -4,6 +4,7 @@ import { Card } from './Componentes/Card';
 import React, {Component} from 'react'
 import { Header } from "./Componentes/Header";
 import { Filters } from "./Componentes/Filtros";
+import { CompraCarrinho } from "./Componentes/Carrinho/Carrinho";
 
 const ListContainer = styled.div`
    display: flex;
@@ -45,6 +46,44 @@ updateOrder = (ev) => {
     })
  }
 
+ onAddProdutoNoCarrinho = (produtoId) => {
+   const carrinhoDeCompras = this.state.carrinhoDeCompras.find(produto => produtoId === produto.id)
+
+   if(carrinhoDeCompras) {
+     const novoCarrinhoDeCompras = this.state.carrinhoDeCompras.map(produto => {
+       if(produtoId === produto.id) {
+         return {
+           ...produto,
+           quantidade: produto.quantidade + 1
+         }
+       }
+
+       return produto
+     })
+
+     this.setState({carrinhoDeCompras: novoCarrinhoDeCompras})
+   } else {
+     const adicionarProduto = produtosLista.find(produto => produtoId === produto.id)
+
+     const novoCarrinhoDeCompras = [...this.state.carrinhoDeCompras, {...adicionarProduto, quantidade: 1}]
+
+     this.setState({carrinhoDeCompras: novoCarrinhoDeCompras})
+   }
+ }
+
+ onRemoveProduto = (produtoId) => {
+   const novoCarrinhoDeCompras = this.state.carrinhoDeCompras.map((produto) => {
+     if(produto.id === produtoId) {
+       return {
+         ...produto,
+         quantidade: produto.quantidade - 1
+       }
+     }
+     return produto
+   }).filter((produto) => produto.quantidade > 0)
+
+   this.setState({carrinhoDeCompras: novoCarrinhoDeCompras})
+ }
 
   render(){
 
@@ -77,6 +116,11 @@ updateOrder = (ev) => {
       return <Card key={produtos.id} produtos={produtos} />
       })}
  </ListContainer>
+
+ <CompraCarrinho
+          carrinhoDeCompras={this.state.carrinhoDeCompras}
+          onRemoveProduto={this.onRemoveProduto}
+        />
   
 </>
   }
